@@ -15,3 +15,6 @@ export default function TypingIndicator(){
   );
 
 }
+<div className="animate-pulse text-purple-400">
+   Agent reasoning...
+</div>

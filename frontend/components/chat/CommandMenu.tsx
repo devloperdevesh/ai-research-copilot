@@ -28,3 +28,6 @@ export default function CommandMenu({onSelect}:any){
  );
 
 }
+if(input.startsWith("/")){
+    setMode(input.replace("/",""))
+ }

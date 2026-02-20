@@ -1,34 +1,34 @@
 "use client";
 
-export default function ResearchToolbar(){
+export default function ResearchToolbar({ mode, setMode }: any) {
 
- const modes=[
-   "Research",
-   "Summarize",
-   "Explain",
-   "Citations",
-   "Compare"
- ];
+  const modes = [
+    { id: "research", label: "Research" },
+    { id: "explain", label: "Deep Explain" },
+    { id: "compare", label: "Compare" },
+    { id: "literature", label: "Literature Review" },
+    { id: "report", label: "Generate Report" }
+  ];
 
- return(
+  return (
 
-  <div className="flex gap-2 flex-wrap">
+    <div className="flex gap-3 flex-wrap">
 
-    {modes.map((m)=>(
+      {modes.map((m) => (
+        <button
+          key={m.id}
+          onClick={() => setMode(m.id)}
+          className={`px-4 py-2 rounded-xl text-sm transition
+            ${mode === m.id
+              ? "bg-pink-500 text-white shadow"
+              : "bg-gray-100 hover:bg-pink-100"}
+          `}
+        >
+          {m.label}
+        </button>
+      ))}
 
-      <button key={m}
-        className="px-3 py-1 rounded-lg bg-gradient-to-r
-        from-blue-100 to-purple-100 text-gray-700
-        hover:scale-105 transition">
+    </div>
 
-        {m}
-
-      </button>
-
-    ))}
-
-  </div>
-
- );
-
+  );
 }

@@ -2,37 +2,46 @@
 
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import ResearchTimeline from "../modes/ResearchTimeline";
+import ChatArea from "../chat/ChatArea";
 
-export default function MainLayout({children}:any){
+export default function MainLayout({ children }: any) {
 
-  return(
+  const steps = [
+    "Understanding question",
+    "Searching embeddings",
+    "Ranking chunks",
+    "Generating answer"
+  ];
 
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-purple-50">
+  return (
 
-      <Navbar/>
+    <div className="h-screen flex flex-col bg-gray-50">
 
-      <div className="flex flex-1">
+      <Navbar />
 
-        {/* Sidebar Desktop only */}
-        <div className="hidden lg:block">
-          <Sidebar/>
+      <div className="flex flex-1 overflow-hidden">
+
+        {/* LEFT SIDEBAR */}
+        <div className="w-64 border-r bg-white">
+          <Sidebar />
         </div>
 
-        {/* Main Area */}
-        <main className="flex-1 flex justify-center px-3 sm:px-6 lg:px-8 py-6">
-
-          <div className="w-full max-w-4xl">
-
+        {/* CENTER CHAT AREA */}
+        <div className="flex-1 flex flex-col">
+          <ChatArea>
             {children}
+          </ChatArea>
+        </div>
 
-          </div>
-
-        </main>
+        {/* RIGHT PANEL */}
+        <div className="hidden xl:block">
+          <ResearchTimeline steps={steps} />
+        </div>
 
       </div>
 
     </div>
 
   );
-
 }
