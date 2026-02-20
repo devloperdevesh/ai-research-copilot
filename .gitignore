@@ -1,0 +1,22 @@
+# ===== Backend =====
+__pycache__/
+*.pyc
+.env
+.env.local
+
+# Data / Storage
+data/
+vector_store/
+
+# ===== Frontend =====
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
