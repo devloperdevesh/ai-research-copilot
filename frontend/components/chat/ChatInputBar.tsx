@@ -15,9 +15,9 @@ export default function ChatInputBar() {
 
   return (
 
-    <div className="max-w-4xl mx-auto flex gap-3 items-center">
+    <div className="max-w-4xl mx-auto flex gap-3 items-center p-4">
 
-      <div className="flex flex-1 items-center border rounded-2xl px-4 py-3 bg-gray-100 focus-within:ring-2 focus-within:ring-pink-400 transition">
+      <div className="flex flex-1 items-center border rounded-full px-4 py-3 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 transition">
 
         <input
           value={message}
@@ -26,7 +26,7 @@ export default function ChatInputBar() {
           className="flex-1 bg-transparent outline-none text-sm"
         />
 
-        <button className="p-2 hover:bg-pink-100 rounded-full transition">
+        <button className="p-2 hover:bg-blue-100 rounded-full transition">
           <Mic size={18} />
         </button>
 
@@ -34,7 +34,7 @@ export default function ChatInputBar() {
 
       <button
         onClick={sendMessage}
-        className="bg-pink-500 hover:bg-pink-600 text-white px-5 py-3 rounded-2xl transition flex items-center gap-2"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-full transition flex items-center gap-2"
       >
         <Send size={16} />
       </button>
@@ -42,4 +42,5 @@ export default function ChatInputBar() {
     </div>
 
   );
+
 }

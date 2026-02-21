@@ -19,35 +19,31 @@ export default function Sidebar(){
   return(
 
     <div className={`
-      h-full
+      h-full flex flex-col
       transition-all duration-300
       ${open ? "w-64" : "w-16"}
-      bg-white
-      border-r border-gray-200
-      p-4 flex flex-col gap-4
+      bg-white border-r border-gray-200 p-4
     `}>
 
-      {/* Collapse Button */}
+      {/* Collapse Toggle */}
       <button
         onClick={()=>setOpen(!open)}
-        className="text-xs bg-gray-100 hover:bg-gray-200 p-2 rounded-lg"
+        className="text-xs bg-gray-100 hover:bg-gray-200 p-2 rounded-lg mb-3"
       >
-        {open ? "Collapse" : "Open"}
+        {open ? "Collapse" : ">"}
       </button>
 
-      {/* New Chat */}
+      {/* New Chat Button */}
       <button className="
-        bg-gradient-to-r from-blue-500 to-purple-600
+        bg-blue-600 hover:bg-blue-700
         text-white
-        p-2
-        rounded-lg
-        shadow hover:scale-[1.02] transition
+        p-2 rounded-lg shadow-sm transition mb-4
       ">
         {open ? "+ New Chat" : "+"}
       </button>
 
-      {/* Modes */}
-      <div className="flex flex-col gap-2 mt-4">
+      {/* MODES */}
+      <div className="flex flex-col gap-1">
 
         {modes.map((mode,index)=>(
 
@@ -57,7 +53,7 @@ export default function Sidebar(){
             className={`
               text-left p-3 rounded-lg text-sm transition
               ${activeMode===mode
-                ? "bg-purple-100 text-purple-700 font-medium"
+                ? "bg-blue-50 text-blue-700 font-medium"
                 : "hover:bg-gray-100"
               }
             `}
@@ -69,9 +65,9 @@ export default function Sidebar(){
 
       </div>
 
-      {/* History */}
+      {/* History Footer */}
       {open && (
-        <div className="mt-auto text-xs text-gray-400">
+        <div className="mt-auto text-xs text-gray-400 pt-6">
           History coming...
         </div>
       )}
@@ -79,4 +75,5 @@ export default function Sidebar(){
     </div>
 
   );
+
 }

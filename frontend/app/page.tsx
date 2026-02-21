@@ -1,13 +1,13 @@
 import MainLayout from "../components/layout/MainLayout";
-import ChatBox from "../components/chat/ChatBox";
+import ChatContainer from "../components/chat/ChatContainer"; 
 
-export default function Home(){
+export default function Home() {
 
-  return(
+  return (
 
     <MainLayout>
 
-      <ChatBox/>
+      <ChatContainer />
 
     </MainLayout>
 

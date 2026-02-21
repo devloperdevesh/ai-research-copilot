@@ -3,7 +3,6 @@
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import ResearchTimeline from "../modes/ResearchTimeline";
-import ChatArea from "../chat/ChatArea";
 
 export default function MainLayout({ children }: any) {
 
@@ -15,33 +14,28 @@ export default function MainLayout({ children }: any) {
   ];
 
   return (
-
     <div className="h-screen flex flex-col bg-gray-50">
 
       <Navbar />
 
       <div className="flex flex-1 overflow-hidden">
 
-        {/* LEFT SIDEBAR */}
-        <div className="w-64 border-r bg-white">
+        {/* Sidebar */}
+        <aside className="hidden md:flex w-64 border-r bg-white">
           <Sidebar />
-        </div>
+        </aside>
 
-        {/* CENTER CHAT AREA */}
-        <div className="flex-1 flex flex-col">
-          <ChatArea>
-            {children}
-          </ChatArea>
-        </div>
+        {/* Main Content */}
+        <main className="flex-1 flex flex-col overflow-hidden">
+          {children}
+        </main>
 
-        {/* RIGHT PANEL */}
-        <div className="hidden xl:block">
+        {/* Right Panel */}
+        <aside className="hidden xl:flex w-72 border-l bg-white">
           <ResearchTimeline steps={steps} />
-        </div>
+        </aside>
 
       </div>
-
     </div>
-
   );
 }

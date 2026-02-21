@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import ModeRouter from "../modes/ModeRouter";
 import ResearchToolbar from "./ResearchToolbar";
 import ChatInputBar from "./ChatInputBar";
 
@@ -9,28 +8,25 @@ export default function ChatContainer() {
 
   const [mode, setMode] = useState("research");
 
-  const [messages, setMessages] = useState([
-    { role: "user", text: "Explain transformers" },
-    { role: "ai", text: "Transformers are attention-based models used in NLP..." }
-  ]);
-
   return (
 
-    <div className="flex flex-col h-full bg-gradient-to-br from-white via-pink-50 to-purple-50">
+    <div className="flex flex-col h-full bg-white">
 
-      {/* 🔹 MODE TOOLBAR */}
-      <div className="p-4 border-b bg-white shadow-sm">
+      {/* Mode Toolbar */}
+      <div className="border-b p-4 bg-white">
         <ResearchToolbar mode={mode} setMode={setMode} />
       </div>
 
-      {/* 🔹 MESSAGE AREA */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      {/* Message Area */}
+      <div className="flex-1 overflow-y-auto p-6">
 
-        <ModeRouter mode={mode} data={messages} />
+        <div className="text-gray-500">
+          🔎 Research Mode
+        </div>
 
       </div>
 
-      {/* 🔹 INPUT BAR */}
+      {/* Bottom Input */}
       <div className="border-t bg-white p-4">
         <ChatInputBar />
       </div>

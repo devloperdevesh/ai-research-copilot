@@ -1,27 +1,37 @@
-import Image from "next/image"
+"use client";
 
-export default function Navbar(){
+import Image from "next/image";
 
-return(
+export default function Navbar() {
 
-<div className="h-14 flex items-center justify-between px-6 bg-white border-b">
+  return (
 
-<div className="flex items-center gap-2">
+    <div className="h-14 flex items-center justify-between px-6 bg-white border-b border-gray-200">
 
-<Image src="/logo.png" width={28} height={28} alt="logo"/>
+      {/* LEFT LOGO */}
+      <div className="flex items-center gap-3">
 
-<h1 className="font-bold text-lg text-pink-500">
-AI Research Copilot
-</h1>
+        <Image
+          src="/logo.png"
+          width={28}
+          height={28}
+          alt="AI Research Copilot"
+          priority
+        />
 
-</div>
+        <h1 className="font-semibold text-lg text-blue-600">
+          AI Research Copilot
+        </h1>
 
-<button className="bg-pink-500 text-white px-4 py-1 rounded-lg">
-Login
-</button>
+      </div>
 
-</div>
+      {/* RIGHT ACTION */}
+      <button className="bg-blue-600 hover:bg-blue-700 transition text-white px-4 py-1.5 rounded-lg text-sm shadow-sm">
+        Login
+      </button>
 
-)
+    </div>
+
+  );
 
 }
