@@ -3,8 +3,6 @@ __pycache__/
 *.pyc
 .env
 .env.local
-
-# Data / Storage
 data/
 vector_store/
 
@@ -12,11 +10,12 @@ vector_store/
 frontend/node_modules/
 frontend/.next/
 frontend/out/
+frontend/.env
 
-# Logs
+# ===== Logs =====
 *.log
 logs/
 
-# OS
+# ===== OS =====
 .DS_Store
 Thumbs.db

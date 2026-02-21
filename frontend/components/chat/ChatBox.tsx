@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 import ResearchToolbar from "./ResearchToolbar";
@@ -8,84 +8,88 @@ import CitationPanel from "./CitationPanel";
 import ThinkingIndicator from "./ThinkingIndicator";
 import useAutoScroll from "@/hooks/useAutoScroll";
 
-export default function ChatBox(){
+export default function ChatBox() {
 
- const [streamText,setStreamText]=useState("");
- const [loading,setLoading]=useState(false);
+  const [mode, setMode] = useState("research");   // ✅ ADD THIS
+  const [streamText, setStreamText] = useState("");
+  const [loading, setLoading] = useState(false);
 
- const bottomRef = useAutoScroll(streamText);
+  const bottomRef = useAutoScroll(streamText);
 
- const sendMessage = async ()=>{
+  const sendMessage = async () => {
 
-   setLoading(true);
+    setLoading(true);
 
-   const response = await fetch("http://localhost:8000/chat",{method:"POST"});
+    const response = await fetch("http://localhost:8000/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ mode }) // optional future use
+    });
 
-   const reader=response.body?.getReader();
-   const decoder=new TextDecoder();
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder();
 
-   let result="";
+    let result = "";
 
-   while(true){
+    while (true) {
 
-     const {done,value}=await reader!.read();
+      const { done, value } = await reader!.read();
 
-     if(done) break;
+      if (done) break;
 
-     result+=decoder.decode(value);
+      result += decoder.decode(value);
+      setStreamText(result);
 
-     setStreamText(result);
+    }
 
-   }
+    setLoading(false);
 
-   setLoading(false);
+  };
 
- };
+  return (
 
- return(
+    <div className="bg-white shadow-xl rounded-2xl border p-6 flex flex-col gap-6">
 
-  <div className="bg-white/70 backdrop-blur-xl shadow-2xl rounded-xl border border-white/40 p-6 flex flex-col gap-4">
+      <h1 className="text-3xl font-semibold text-blue-600">
+        AI Research Copilot
+      </h1>
 
-    <h1 className="text-4xl font-bold ai-gradient-text">
-      AI Research Copilot
-    </h1>
+      <p className="text-gray-500">
+        Upload research papers or ask AI.
+      </p>
 
-    <p className="text-gray-500">
-      Upload research papers or ask AI.
-    </p>
+      {/* ✅ PASS PROPS HERE */}
+      <ResearchToolbar mode={mode} setMode={setMode} />
 
-    <ResearchToolbar/>
+      {loading && <ThinkingIndicator />}
 
-    {loading && <ThinkingIndicator/>}
+      {streamText && (
 
-    {streamText &&(
+        <div className="bg-gray-50 p-4 rounded-xl border">
 
-      <div className="bg-gray-50 p-4 rounded-lg">
+          <ReactMarkdown>
+            {streamText}
+          </ReactMarkdown>
 
-        <ReactMarkdown>
+          <CitationPanel />
 
-          {streamText}
+        </div>
 
-        </ReactMarkdown>
+      )}
 
-        <CitationPanel/>
+      <button
+        onClick={sendMessage}
+        className="bg-blue-600 hover:bg-blue-700 transition text-white py-2 rounded-xl"
+      >
+        Ask AI
+      </button>
 
-      </div>
+      <div ref={bottomRef} />
 
-    )}
+    </div>
 
-    <button
-      onClick={sendMessage}
-      className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-2 rounded-lg">
-
-      Ask AI
-
-    </button>
-
-    <div ref={bottomRef}/>
-
-  </div>
-
- );
+  );
 
 }

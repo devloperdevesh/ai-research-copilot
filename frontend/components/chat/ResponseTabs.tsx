@@ -2,77 +2,81 @@
 
 import { useState } from "react";
 
-export default function ResponseTabs({answer, citations, context}) {
+type Props = {
+  answer?: string;
+  citations?: string[];
+  context?: string;
+};
 
-const [tab,setTab] = useState("answer");
+export default function ResponseTabs({
+  answer,
+  citations,
+  context
+}: Props) {
 
-const tabs = [
-{ id:"answer", label:"Answer" },
-{ id:"citations", label:"Sources" },
-{ id:"thinking", label:"Agent Thinking" }
-];
+  const [tab, setTab] = useState<"answer" | "citations" | "thinking">("answer");
 
-return (
+  const tabs = [
+    { id: "answer", label: "Answer" },
+    { id: "citations", label: "Sources" },
+    { id: "thinking", label: "Agent Thinking" }
+  ];
 
-<div className="mt-6">
+  return (
+    <div className="mt-6">
 
-{/* Tabs */}
-<div className="flex gap-3 mb-4">
+      {/* Tabs */}
+      <div className="flex gap-3 mb-4">
 
-{tabs.map(t => (
-<button
-key={t.id}
-onClick={()=>setTab(t.id)}
-className={`px-3 py-1 rounded-lg text-sm transition
-${tab===t.id
-? "bg-purple-600 text-white shadow-lg"
-: "bg-white/10 hover:bg-white/20"}
-`}
->
-{t.label}
-</button>
-))}
+        {tabs.map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setTab(t.id as any)}
+            className={`px-4 py-2 rounded-xl text-sm transition-all duration-200
+              ${
+                tab === t.id
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "bg-gray-100 hover:bg-blue-50"
+              }
+            `}
+          >
+            {t.label}
+          </button>
+        ))}
 
-</div>
+      </div>
 
-{/* Content Panel */}
+      {/* Content Panel */}
+      <div className="bg-white border rounded-xl p-5 min-h-[150px] shadow-sm">
 
-<div className="bg-black/40 backdrop-blur-lg p-5 rounded-xl border border-white/10 min-h-[150px]">
+        {tab === "answer" && (
+          <div className="leading-relaxed text-gray-800">
+            {answer || "AI response will appear here..."}
+          </div>
+        )}
 
-{tab==="answer" && (
+        {tab === "citations" && (
+          <div>
+            {citations && citations.length > 0 ? (
+              citations.map((c, i) => (
+                <div key={i} className="text-sm mb-2 flex gap-2 text-gray-700">
+                  📄 <span>{c}</span>
+                </div>
+              ))
+            ) : (
+              <span className="text-gray-400">No sources yet</span>
+            )}
+          </div>
+        )}
 
-<div className="leading-relaxed">
-{answer || "AI response will appear here..."}
-</div>
+        {tab === "thinking" && (
+          <div className="text-sm text-gray-600">
+            {context || "Agent reasoning chain will appear here..."}
+          </div>
+        )}
 
-)}
+      </div>
 
-{tab==="citations" && (
-
-<div>
-
-{citations?.length ? citations.map((c,i)=>(
-<div key={i} className="text-sm mb-2 flex gap-2">
-📄 <span>{c}</span>
-</div>
-)) : "No sources yet"}
-
-</div>
-
-)}
-
-{tab==="thinking" && (
-
-<div className="text-sm text-gray-300">
-{context || "Agent reasoning chain will appear here..."}
-</div>
-
-)}
-
-</div>
-
-</div>
-
-);
-
+    </div>
+  );
 }

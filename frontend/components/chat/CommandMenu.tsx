@@ -1,33 +1,29 @@
 "use client";
 
-export default function CommandMenu({onSelect}:any){
+import { useState } from "react";
 
- const commands=[
-  "/research",
-  "/summarize",
-  "/explain",
-  "/citation"
- ];
+export default function CommandMenu({ setMode }: any){
 
- return(
+  const [input, setInput] = useState("");
 
-  <div className="absolute bottom-14 bg-white shadow-xl rounded-lg p-2 w-full">
+  function handleCommand(value:string){
 
-   {commands.map((cmd)=>(
-    <div
-     key={cmd}
-     onClick={()=>onSelect(cmd)}
-     className="p-2 hover:bg-gray-100 cursor-pointer rounded"
-    >
-     {cmd}
-    </div>
-   ))}
+    setInput(value);
 
-  </div>
+    if(value.startsWith("/")){
+      setMode(value.replace("/",""));
+    }
+  }
 
- );
+  return(
+
+    <input
+      value={input}
+      onChange={(e)=>handleCommand(e.target.value)}
+      placeholder="Type /research /compare ..."
+      className="border p-2 rounded"
+    />
+
+  );
 
 }
-if(input.startsWith("/")){
-    setMode(input.replace("/",""))
- }

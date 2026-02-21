@@ -1,33 +1,50 @@
 "use client";
 
-export default function ResearchTimeline({steps}){
+type Props = {
+  steps?: string[];
+};
 
-return(
+export default function ResearchTimeline({ steps = [] }: Props) {
 
-<div className="w-72 border-l bg-white p-4 overflow-y-auto">
+  return (
 
-<h3 className="font-semibold text-pink-500 mb-5">
-🧠 Agent Thinking
-</h3>
+    <div className="w-72 border-l bg-white p-4 overflow-y-auto">
 
-{steps?.map((step,index)=>(
+      <h3 className="font-semibold text-blue-600 mb-5">
+        🧠 Agent Thinking
+      </h3>
 
-<div key={index} className="flex gap-3 mb-4">
+      {steps.length === 0 && (
+        <p className="text-sm text-gray-400">
+          Waiting for agent steps...
+        </p>
+      )}
 
-<div className="w-2 h-2 rounded-full bg-pink-400 mt-2 animate-pulse"/>
+      {steps.map((step, index) => (
 
-<div className="bg-pink-50 rounded-lg p-3 text-sm shadow-sm">
+        <div key={index} className="flex gap-3 mb-4">
 
-STEP {index+1} — {step}
+          {/* Animated dot */}
+          <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 animate-pulse"/>
 
-</div>
+          {/* Step card */}
+          <div className="bg-blue-50 rounded-lg p-3 text-sm shadow-sm">
 
-</div>
+            <span className="font-medium text-gray-600">
+              STEP {index + 1}
+            </span>
 
-))}
+            <div className="text-gray-800 mt-1">
+              {step}
+            </div>
 
-</div>
+          </div>
 
-)
+        </div>
 
+      ))}
+
+    </div>
+
+  );
 }
