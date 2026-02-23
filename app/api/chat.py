@@ -1,18 +1,15 @@
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
-import asyncio
+from models.schemas import ChatRequest
+from modes.research_agent import run_agent
 
 router = APIRouter()
 
-async def fake_stream():
-
-    text = "This is streaming AI response like ChatGPT."
-
-    for char in text:
-        yield char
-        await asyncio.sleep(0.02)
-
 @router.post("/chat")
-async def chat():
+async def chat(req: ChatRequest):
 
-    return StreamingResponse(fake_stream(), media_type="text/plain")
+    async def stream():
+        async for chunk in run_agent(req.query, req.mode):
+            yield chunk
+
+    return StreamingResponse(stream(), media_type="text/plain")
