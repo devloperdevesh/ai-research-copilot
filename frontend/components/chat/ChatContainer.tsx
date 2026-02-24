@@ -1,37 +1,53 @@
 "use client";
 
-import { useState } from "react";
-import ResearchToolbar from "./ResearchToolbar";
 import ChatInputBar from "./ChatInputBar";
 
-export default function ChatContainer() {
+export default function ChatContainer(){
 
-  const [mode, setMode] = useState("research");
+return(
 
-  return (
+<div className="flex flex-col h-full bg-gray-50">
 
-    <div className="flex flex-col h-full bg-white">
+{/* HERO */}
+<div className="flex-1 flex items-center justify-center text-center px-6">
 
-      {/* Mode Toolbar */}
-      <div className="border-b p-4 bg-white">
-        <ResearchToolbar mode={mode} setMode={setMode} />
-      </div>
+<div>
 
-      {/* Message Area */}
-      <div className="flex-1 overflow-y-auto p-6">
+<h1 className="text-4xl font-semibold">
+Research with context, not guesses.
+</h1>
 
-        <div className="text-gray-500">
-          🔎 Research Mode
-        </div>
+<p className="text-gray-500 mt-3">
+Upload academic papers. Ask structured questions. Get cited answers.
+</p>
 
-      </div>
+<div className="flex justify-center gap-3 mt-6">
 
-      {/* Bottom Input */}
-      <div className="border-t bg-white p-4">
-        <ChatInputBar />
-      </div>
+<button className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg">
+Analyze Paper
+</button>
 
-    </div>
+<button className="bg-gray-100 px-4 py-2 rounded-lg">
+Compare Research
+</button>
 
-  );
+<button className="bg-gray-100 px-4 py-2 rounded-lg">
+Generate Report
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+{/* FLOATING INPUT */}
+<div className="border-t bg-white">
+<ChatInputBar/>
+</div>
+
+</div>
+
+);
+
 }

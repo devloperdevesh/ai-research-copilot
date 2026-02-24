@@ -1,79 +1,47 @@
 "use client";
 
 import { useState } from "react";
+import { Search, Brain, GitCompare, BookOpen, FileText } from "lucide-react";
 
 export default function Sidebar(){
 
-  const [open,setOpen] = useState(true);
-  const [activeMode,setActiveMode] = useState("Research");
+ const [active,setActive]=useState("research");
 
-  const modes = [
-    "Research",
-    "Deep Explain",
-    "Compare",
-    "Literature Review",
-    "Report Generator",
-    "Hypothesis Mode"
-  ];
+ const modes=[
+  {id:"research",label:"Research",icon:<Search size={18}/>},
+  {id:"explain",label:"Deep Explain",icon:<Brain size={18}/>},
+  {id:"compare",label:"Compare",icon:<GitCompare size={18}/>},
+  {id:"literature",label:"Literature",icon:<BookOpen size={18}/>},
+  {id:"report",label:"Report",icon:<FileText size={18}/>}
+ ];
 
-  return(
+ return(
 
-    <div className={`
-      h-full flex flex-col
-      transition-all duration-300
-      ${open ? "w-64" : "w-16"}
-      bg-white border-r border-gray-200 p-4
-    `}>
+<div className="h-full w-64 bg-white border-r p-4 flex flex-col">
 
-      {/* Collapse Toggle */}
-      <button
-        onClick={()=>setOpen(!open)}
-        className="text-xs bg-gray-100 hover:bg-gray-200 p-2 rounded-lg mb-3"
-      >
-        {open ? "Collapse" : ">"}
-      </button>
+{modes.map(m=>(
+<button
+key={m.id}
+onClick={()=>setActive(m.id)}
+className={`flex items-center gap-3 p-3 rounded-lg text-sm
+${active===m.id?"bg-blue-100 text-blue-600":"hover:bg-gray-100"}
+`}
+>
+{m.icon}
+{m.label}
+</button>
+))}
 
-      {/* New Chat Button */}
-      <button className="
-        bg-blue-600 hover:bg-blue-700
-        text-white
-        p-2 rounded-lg shadow-sm transition mb-4
-      ">
-        {open ? "+ New Chat" : "+"}
-      </button>
+<div className="mt-6 text-xs text-gray-400">
+Recent Chats
+</div>
 
-      {/* MODES */}
-      <div className="flex flex-col gap-1">
+<div className="text-sm text-gray-500 mt-2">
+Research transformers
+</div>
 
-        {modes.map((mode,index)=>(
+</div>
 
-          <button
-            key={index}
-            onClick={()=>setActiveMode(mode)}
-            className={`
-              text-left p-3 rounded-lg text-sm transition
-              ${activeMode===mode
-                ? "bg-blue-50 text-blue-700 font-medium"
-                : "hover:bg-gray-100"
-              }
-            `}
-          >
-            {open ? mode : "•"}
-          </button>
-
-        ))}
-
-      </div>
-
-      {/* History Footer */}
-      {open && (
-        <div className="mt-auto text-xs text-gray-400 pt-6">
-          History coming...
-        </div>
-      )}
-
-    </div>
-
-  );
+ );
 
 }
